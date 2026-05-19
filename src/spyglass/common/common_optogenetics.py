@@ -389,12 +389,6 @@ class OpticalFiberImplant(SpyglassIngestion, dj.Manual):
         return super().insert_from_nwbfile(nwb_file_name, config, dry_run)
 
     def generate_entries_from_nwb_object(self, nwb_obj, base_key=None):
-        if getattr(nwb_obj, "model", None) is None:
-            logger.warning(
-                f"Skipping OpticalFiber '{nwb_obj.name}': no model linked. "
-                "Ensure OpticalFiberModel is present in the NWB file."
-            )
-            return {self: []}
         entries = super().generate_entries_from_nwb_object(nwb_obj, base_key)
         self_entries = entries[self]
         for entry in self_entries:
