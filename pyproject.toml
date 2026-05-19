@@ -54,6 +54,7 @@ dependencies = [
   "ndx-optogenetics==0.3.0",
   "ndx-ophys-devices",
   "ndx-pose",
+  "ndx-structured-behavior @ git+https://github.com/rly/ndx-structured-behavior.git",
   "non-local-detector",
   "numpy",
   "opencv-python",
@@ -113,6 +114,9 @@ optional-dependencies.test = [
 ]
 urls."Bug Tracker" = "https://github.com/LorenFrankLab/spyglass/issues"
 urls."Homepage" = "https://github.com/LorenFrankLab/spyglass"
+
+[tool.hatch.metadata]
+allow-direct-references = true
 
 [tool.hatch.version]
 source = "vcs"
