@@ -162,7 +162,7 @@ class TaskEpoch(SpyglassMixin, dj.Imported):
                 {"camera_name": camera_names[camera_id]}
                 for camera_id in valid_camera_ids
             ]
-        if camera_ids:  # Only warn if camera_ids were specified
+        if len(camera_ids) > 0:  # Only warn if camera_ids were specified
             logger.warning(
                 f"No camera device found with ID {camera_ids}{context}\n"
             )
@@ -265,8 +265,8 @@ class TaskEpoch(SpyglassMixin, dj.Imported):
                     camera_names,
                     context=f" in NWB file {nwbf}",
                 )
-                if camera_names_list:
-                    key["camera_names"] = camera_names_list
+                # camera_names has no SQL default; always set it, even when empty.
+                key["camera_names"] = camera_names_list or []
 
                 # Add task environment if present
                 if hasattr(task, "task_environment"):
@@ -291,8 +291,8 @@ class TaskEpoch(SpyglassMixin, dj.Imported):
             camera_names_list = self._get_valid_camera_names(
                 task.get("camera_id", []), camera_names
             )
-            if camera_names_list:
-                task_key["camera_names"] = camera_names_list
+            # camera_names has no SQL default; always set it, even when empty.
+            task_key["camera_names"] = camera_names_list or []
 
             # Process all epochs for this task
             task_epoch_inserts.extend(
